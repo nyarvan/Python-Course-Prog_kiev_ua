@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Корзина{% endblock %}
+
+{% block content %}
+    <div class="cart_title">
+        <h1>Корзина</h1>
+    </div>
+    <table class="cart">
+        <thead>
+        <tr>
+            <th>Фотография</th>
+            <th>Название</th>
+            <th>Количество</th>
+            <th>Цена</th>
+            <th>Общая цена</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in cart %}
+            {% with product=item.product %}
+                <tr>
+                    <td>
+                        <a href="{{ product.get_absolute_url }}">
+                            <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                        </a>
+                    </td>
+                    <td>
+                        {{ product.name }}
+                    </td>
+                    <td>
+                        {{ item.count }}
+                    </td>
+
+                    <td class="num">
+                        &#8372;{{ item.price }}
+                    </td>
+                    <td class="num">
+                        &#8372;{{ item.total_price }}
+                    </td>
+                    <td>
+                        <a href="{% url "cart:cart_remove" product.id %}">x</a>
+                    </td>
+                </tr>
+            {% endwith %}
+        {% endfor %}
+        <tr class="total">
+            <td>
+                К олате:
+            </td>
+            <td colspan="4">
+            </td>
+            <td class="result_num">
+                &#8372;{{ cart.get_total_price }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="text-right">
+        <div class="button_continue">
+            <a href="{% url "shop:product_list" %}"><button>Продолжить покупки</button></a>
+        </div>
+        <div class="button_buy">
+        <a href="{% url "order:create_order" %}">
+            <button>
+                Купить
+            </button>
+        </a>
+    </div>
+{% endblock %}

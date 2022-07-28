@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ Products }}
+{% endblock %}
+
+{% block content %}
+    <div id="main" class="product-list">
+        <div class="catalog_title">
+            <h1>Каталог</h1>
+        </div>
+        {% for product in product_list %}
+            <div class="item">
+                <a href="{{ product.get_absolute_url }}">
+                   <img src="{% if product.image %}
+                                    {{ product.image.url }}
+                             {% else %}
+                                {% static 'img/no_image.png' %}
+                             {% endif %}">
+                </a>
+
+                    <a href="{{ product.get_absolute_url }}" class="product-name">{{ product.name }}</a>
+                <br>
+                <div class="product_price">&#8372; {{ product.price }}</div>
+            <div class="buy_button">
+                <a href="{% url "cart:cart_add" product.id %}">
+                    <p><button>Купить</button></p>
+                </a>
+            </div>
+            <div class="add_cart">
+                <a href="{% url "cart:cart_push" product.id %}">
+                    <p><button>Добавить в корзину</button></p>
+                </a>
+            </div>
+            </div>
+
+        {% endfor %}
+    </div>
+{% endblock %}

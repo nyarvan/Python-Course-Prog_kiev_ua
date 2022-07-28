@@ -1,0 +1,7 @@
+from django import forms
+from .models import Order
+
+class CreateOrderFrom(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['name', 'surname', 'patronymic', 'email', 'address', 'postal_code', 'city']

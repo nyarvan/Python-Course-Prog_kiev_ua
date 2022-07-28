@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %} Подтверждение заказа {% endblock %}
+
+{% block content %}
+    <div class="complete_order">
+        <h1>Cпасибо вам за заказ!</h1>
+        <p class="order-id">Заказ №<strong>{{ order.id }}</strong>.</p>
+        <p>Ваш заказ был принят.</p>
+    </div>
+{% endblock %}
